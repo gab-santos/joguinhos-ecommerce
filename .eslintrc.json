@@ -1,0 +1,65 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "es6": true,
+    "react-native/react-native": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb-base",
+    "plugin:jsx-a11y/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-native/all"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-native",
+    "@typescript-eslint",
+    "import",
+    "jsx-a11y",
+    "react-hooks",
+    "eslint-plugin-import-helpers"
+  ],
+  "settings": {
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
+    "import/resolver": { "typescript": {} }
+  },
+  "rules": {
+    "no-use-before-define": "off",
+    "react/jsx-filename-extension": [
+      0, { "extensions": [".tsx"] }
+    ],
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "import/extensions": [0, "never"],
+    "react/prop-types": "off",
+    "camelcase": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "consistent-return": "off",
+    //
+    "react-native/no-color-literals": "off",
+    "react-native/no-raw-text": "off",
+    // "react-native/no-unused-styles": 2,
+    // "react-native/split-platform-components": 2,
+    // "react-native/no-inline-styles": 2,
+    // "react-native/no-single-element-style-arrays": 2,
+    //
+    "import-helpers/order-imports": [ "warn", {
+      "newlinesBetween": "always",
+      "groups": ["/^react/", "module", ["parent", "sibling", "index"], "/./styles/"],
+      "alphabetize": { "order": "asc", "ignoreCase": true }
+    }]
+  }
+}
