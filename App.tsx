@@ -1,21 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+
+import AppContext, { ListItems } from './src/contexts/appContext';
+import Routes from './src/routes';
+import data from './src/services/data.json';
 
 const App: React.FC = () => {
+  const [listItems, setListItems] = useState<ListItems[]>(data);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <AppContext.Provider value={{ listItems }}>
+      <Routes />
+    </AppContext.Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
 
 export default App;
