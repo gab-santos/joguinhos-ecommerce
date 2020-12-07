@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
+import CartItem from '../../components/CartItem';
 import Header from '../../components/Header';
 import AppContext from '../../contexts/appContext';
 
@@ -23,7 +23,7 @@ const Cart: React.FC = () => {
       <CartList
         data={cartList}
         keyExtractor={item => String(item.product.id)}
-        renderItem={({ item }) => <Text>{item.product.name}</Text>}
+        renderItem={({ item }) => <CartItem {...{ item }} />}
       />
     </Container>
   );
