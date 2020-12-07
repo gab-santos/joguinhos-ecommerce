@@ -6,7 +6,16 @@ import CartItem from '../../components/CartItem';
 import Header from '../../components/Header';
 import AppContext from '../../contexts/appContext';
 
-import { Container, CartList } from './styles';
+import {
+  Container,
+  EmptyList,
+  CartList,
+  Foother,
+  Subtotal,
+  Shipping,
+  Total,
+  Bottom,
+} from './styles';
 
 const Cart: React.FC = () => {
   const { cartList } = useContext(AppContext);
@@ -20,11 +29,39 @@ const Cart: React.FC = () => {
       <Header back onPress={handleNavigateBack}>
         Joguinhos
       </Header>
+
+      {cartList.length <= 0 && (
+        <EmptyList>Não há item no carrinho :)</EmptyList>
+      )}
+
       <CartList
         data={cartList}
         keyExtractor={item => String(item.product.id)}
         renderItem={({ item }) => <CartItem {...{ item }} />}
       />
+
+      {cartList.length > 0 && (
+        <Foother>
+          <Subtotal.container>
+            <Subtotal.label>Subtotal: </Subtotal.label>
+            <Subtotal.info>R$ 0</Subtotal.info>
+          </Subtotal.container>
+
+          <Shipping.container>
+            <Shipping.label>Frete: </Shipping.label>
+            <Shipping.info>R$ 0</Shipping.info>
+          </Shipping.container>
+
+          <Total.container>
+            <Total.label>Total: </Total.label>
+            <Total.info>R$ 0</Total.info>
+          </Total.container>
+
+          <Bottom.container>
+            <Bottom.text>Finalizar compra</Bottom.text>
+          </Bottom.container>
+        </Foother>
+      )}
     </Container>
   );
 };
