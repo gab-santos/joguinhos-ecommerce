@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import AppContext from '../../contexts/appContext';
 
 import { Container, Title, Side } from './styles';
 
@@ -9,6 +11,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ back, cart, onPress, children }) => {
+  const { cartList } = useContext(AppContext);
   return (
     <Container>
       <Side.container>
@@ -27,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ back, cart, onPress, children }) => {
             <Side.button {...{ onPress }}>
               <Side.icon name="shopping-cart" />
             </Side.button>
-            <Side.counter />
+            {cartList.length > 0 && <Side.counter />}
           </>
         )}
       </Side.container>

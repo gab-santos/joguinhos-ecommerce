@@ -8,8 +8,16 @@ export interface Product {
   image: string;
 }
 
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  total: number;
+}
+
 export interface IAppContext {
   productList: Product[];
+  cartList: CartItem[];
+  addToCart: (item: Product) => void;
 }
 
 const AppContext = createContext({} as IAppContext);

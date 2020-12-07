@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
+import AppContext from '../../contexts/appContext';
 
-import { Container } from './styles';
+import { Container, CartList } from './styles';
 
 const Cart: React.FC = () => {
+  const { cartList } = useContext(AppContext);
   const { goBack } = useNavigation();
 
   function handleNavigateBack() {
@@ -18,7 +20,11 @@ const Cart: React.FC = () => {
       <Header back onPress={handleNavigateBack}>
         Joguinhos
       </Header>
-      <Text>Cart</Text>
+      <CartList
+        data={cartList}
+        keyExtractor={item => String(item.product.id)}
+        renderItem={({ item }) => <Text>{item.product.name}</Text>}
+      />
     </Container>
   );
 };

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Images from '../../assets';
-import { Product } from '../../contexts/appContext';
+import AppContext, { Product } from '../../contexts/appContext';
 
 import { Container, Header, Image, Infos, Name, Score, Footer } from './styles';
 
@@ -10,7 +10,12 @@ interface ListItemProps {
 }
 
 const ListItem: React.FC<ListItemProps> = ({ item }) => {
+  const { addToCart } = useContext(AppContext);
   const img = item.image.split('.')[0].replace(/-/g, '');
+
+  function handleAddToCart() {
+    addToCart(item);
+  }
 
   return (
     <>
@@ -28,7 +33,7 @@ const ListItem: React.FC<ListItemProps> = ({ item }) => {
           </Infos.container>
         </Header>
       </Container>
-      <Footer.container>
+      <Footer.container onPress={handleAddToCart}>
         <Footer.icon name="shopping-cart" />
       </Footer.container>
     </>
