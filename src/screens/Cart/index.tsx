@@ -18,7 +18,7 @@ import {
 } from './styles';
 
 const Cart: React.FC = () => {
-  const { cartList } = useContext(AppContext);
+  const { cartList, totalPrices } = useContext(AppContext);
   const { goBack } = useNavigation();
 
   function handleNavigateBack() {
@@ -44,17 +44,17 @@ const Cart: React.FC = () => {
         <Foother>
           <Subtotal.container>
             <Subtotal.label>Subtotal: </Subtotal.label>
-            <Subtotal.info>R$ 0 {(2.99).toFixed(2)}</Subtotal.info>
+            <Subtotal.info>R$ {totalPrices.subtotal.toFixed(2)}</Subtotal.info>
           </Subtotal.container>
 
           <Shipping.container>
             <Shipping.label>Frete: </Shipping.label>
-            <Shipping.info>R$ {(2.99).toFixed(2)}</Shipping.info>
+            <Shipping.info>R$ {totalPrices.freight.toFixed(2)}</Shipping.info>
           </Shipping.container>
 
           <Total.container>
             <Total.label>Total: </Total.label>
-            <Total.info>R$ {(2.99).toFixed(2)}</Total.info>
+            <Total.info>R$ {totalPrices.total.toFixed(2)}</Total.info>
           </Total.container>
 
           <Bottom.container>

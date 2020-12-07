@@ -17,11 +17,21 @@ export interface CartItem {
 export interface IAppContext {
   productList: Product[];
   cartList: CartItem[];
+  totalPrices: {
+    freight: number;
+    subtotal: number;
+    total: number;
+  };
+
   addToCart: (item: Product) => void;
   removeFromCart: (item: CartItem) => void;
   changeQuantity: {
     increaseQuantity: (cartItem: CartItem) => void;
     decreaseQuantity: (cartItem: CartItem) => void;
+  };
+  changeTotalPrices: {
+    increase: (item: Product) => void;
+    decrease: (item: Product) => void;
   };
 }
 

@@ -15,6 +15,44 @@ const App: React.FC = () => {
   });
   const [productList] = useState<Product[]>(data);
   const [cartList, setListCart] = useState<CartItem[]>([]);
+  const [total, setTotal] = useState({
+    subtotal: 0,
+    freight: 0,
+    total: 0,
+  });
+
+  function increaseTotalPrices(item: Product) {
+    setTotal(prev => {
+      const calcFreight = prev.freight + 10;
+      const calcSubTotal = prev.subtotal + item.price;
+      const calcTotal = calcFreight + calcSubTotal;
+
+      return {
+        subtotal: calcSubTotal,
+        freight: calcFreight,
+        total: calcTotal,
+      };
+    });
+  }
+
+  function decreaseTotalPrices(item: Product) {
+    setTotal(prev => {
+      const calcFreight = prev.freight - 10;
+      const calcSubTotal = prev.subtotal - item.price;
+      const calcTotal = calcFreight + calcSubTotal;
+
+      return {
+        subtotal: calcSubTotal,
+        freight: calcFreight,
+        total: calcTotal,
+      };
+    });
+  }
+
+  const changeTotalPrices = {
+    increase: (item: Product) => increaseTotalPrices(item),
+    decrease: (item: Product) => decreaseTotalPrices(item),
+  };
 
   function addToCart(item: Product) {
     if (!cartList.find(product => product.product.id === item.id)) {
@@ -22,35 +60,42 @@ const App: React.FC = () => {
         ...prev,
         { product: item, quantity: 1, total: item.price },
       ]);
+      changeTotalPrices.increase(item);
     }
   }
 
   function increaseQuantity(cartItem: CartItem) {
+    const newItem = {
+      ...cartItem,
+      quantity: cartItem.quantity + 1,
+      total: cartItem.total + cartItem.product.price,
+    };
+
     setListCart(prev =>
       prev.map(prevItem =>
-        prevItem.product.id === cartItem.product.id
-          ? {
-              ...prevItem,
-              quantity: prevItem.quantity + 1,
-              total: prevItem.total + cartItem.product.price,
-            }
-          : prevItem,
+        prevItem.product.id === cartItem.product.id ? newItem : prevItem,
       ),
     );
+    changeTotalPrices.increase(newItem.product);
   }
 
   function decreaseQuantity(cartItem: CartItem) {
+    const newItem = {
+      ...cartItem,
+      quantity: cartItem.quantity - 1,
+      total: cartItem.total - cartItem.product.price,
+    };
+
     setListCart(prev =>
-      prev.map(prevItem =>
-        prevItem.product.id === cartItem.product.id && prevItem.quantity > 1
-          ? {
-              ...prevItem,
-              quantity: prevItem.quantity - 1,
-              total: prevItem.total - cartItem.product.price,
-            }
-          : prevItem,
-      ),
+      prev.map(prevItem => {
+        return prevItem.product.id === cartItem.product.id &&
+          prevItem.quantity > 1
+          ? newItem
+          : prevItem;
+      }),
     );
+
+    if (cartItem.quantity > 1) changeTotalPrices.decrease(newItem.product);
   }
 
   const changeQuantity = {
@@ -71,9 +116,11 @@ const App: React.FC = () => {
       value={{
         productList,
         cartList,
+        totalPrices: total,
         addToCart,
         removeFromCart,
         changeQuantity,
+        changeTotalPrices,
       }}
     >
       <Routes />
