@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import { Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
+import ListItem from '../../components/ListItem';
 import AppContext from '../../contexts/appContext';
 
-import { Wrapper } from './styles';
+import { Wrapper, ProductsList } from './styles';
 
 const List: React.FC = () => {
-  const { listItems } = useContext(AppContext);
+  const { productList } = useContext(AppContext);
   const { navigate } = useNavigation();
 
   function handleNavigateToCart() {
@@ -22,9 +22,13 @@ const List: React.FC = () => {
         Joguinhos
       </Header>
 
-      {listItems.map(item => (
-        <Text key={String(item.id)}>{item.id}</Text>
-      ))}
+      <ProductsList
+        data={productList}
+        keyExtractor={item => String(item.id)}
+        renderItem={({ item }) => (
+          <ListItem key={String(item.id)} {...{ item }} />
+        )}
+      />
     </Wrapper>
   );
 };

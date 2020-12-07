@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export interface ListItems {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -9,7 +9,7 @@ export interface ListItems {
 }
 
 export interface IAppContext {
-  listItems: ListItems[];
+  productList: Product[];
 }
 
 const AppContext = createContext({} as IAppContext);
