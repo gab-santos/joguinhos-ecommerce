@@ -18,6 +18,9 @@ export interface IAppContext {
   productList: Product[];
   cartList: CartItem[];
   addToCart: (item: Product) => void;
+  changeQuantity: {
+    increaseQuantity: (id: number) => void;
+  };
 }
 
 const AppContext = createContext({} as IAppContext);

@@ -25,10 +25,30 @@ const App: React.FC = () => {
     }
   }
 
+  function increaseQuantity(id: number) {
+    setListCart(prev =>
+      prev.map(item =>
+        item.product.id === id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              total: item.total + item.product.price,
+            }
+          : item,
+      ),
+    );
+  }
+
+  const changeQuantity = {
+    increaseQuantity: (id: number) => increaseQuantity(id),
+  };
+
   if (!loadFonts) return <AppLoading />;
 
   return (
-    <AppContext.Provider value={{ productList, cartList, addToCart }}>
+    <AppContext.Provider
+      value={{ productList, cartList, addToCart, changeQuantity }}
+    >
       <Routes />
     </AppContext.Provider>
   );

@@ -29,7 +29,7 @@ const ListItem: React.FC<ListItemProps> = ({ item }) => {
               <Score>score: {item.score}</Score>
             </Infos.header>
 
-            <Infos.price>R$ {item.price}</Infos.price>
+            <Infos.price>R$ {item.price.toFixed(2)}</Infos.price>
           </Infos.container>
         </Header>
       </Container>
