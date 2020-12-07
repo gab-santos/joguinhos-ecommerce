@@ -4,6 +4,8 @@
 
 A aplicação é um "pseudo ecommerce" de games mobile utilizando React Native. Com ela é possível listar e filtrar os produtos da lista, assim como adicioná-los ao carrinho.
 
+**O APK ESTÁ LOCALIZADO NA PASTA SRC**
+
 Dentro dessa stack cada ferramenta tem sua própria responsabilidade:
 
 - **Expo** - Faz o papel de compilador da aplicação substituindo o Android SDK e o Xcode por um método próprio, eliminado assim a necessidade de configuração.
