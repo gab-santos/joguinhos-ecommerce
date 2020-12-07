@@ -58,11 +58,23 @@ const App: React.FC = () => {
     decreaseQuantity: (item: CartItem) => decreaseQuantity(item),
   };
 
+  function removeFromCart(cartItem: CartItem) {
+    setListCart(prev =>
+      prev.filter(prevItem => prevItem.product.id !== cartItem.product.id),
+    );
+  }
+
   if (!loadFonts) return <AppLoading />;
 
   return (
     <AppContext.Provider
-      value={{ productList, cartList, addToCart, changeQuantity }}
+      value={{
+        productList,
+        cartList,
+        addToCart,
+        removeFromCart,
+        changeQuantity,
+      }}
     >
       <Routes />
     </AppContext.Provider>

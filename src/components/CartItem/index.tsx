@@ -22,13 +22,18 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const img = item.product.image.split('.')[0].replace(/-/g, '');
-  const { changeQuantity } = useContext(AppContext);
+  const { changeQuantity, removeFromCart } = useContext(AppContext);
 
   function handleIncreaseItem() {
     changeQuantity.increaseQuantity(item);
   }
+
   function handleDecreaseItem() {
     changeQuantity.decreaseQuantity(item);
+  }
+
+  function handleRemoveCartItem() {
+    removeFromCart(item);
   }
 
   return (
@@ -57,7 +62,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <TotalPrice>R$ {item.total.toFixed(2)}</TotalPrice>
       </Footer>
 
-      <Remove.container onPress={() => {}}>
+      <Remove.container onPress={handleRemoveCartItem}>
         <Remove.icon />
       </Remove.container>
     </Container>
