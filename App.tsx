@@ -25,22 +25,37 @@ const App: React.FC = () => {
     }
   }
 
-  function increaseQuantity(id: number) {
+  function increaseQuantity(cartItem: CartItem) {
     setListCart(prev =>
-      prev.map(item =>
-        item.product.id === id
+      prev.map(prevItem =>
+        prevItem.product.id === cartItem.product.id
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-              total: item.total + item.product.price,
+              ...prevItem,
+              quantity: prevItem.quantity + 1,
+              total: prevItem.total + cartItem.product.price,
             }
-          : item,
+          : prevItem,
+      ),
+    );
+  }
+
+  function decreaseQuantity(cartItem: CartItem) {
+    setListCart(prev =>
+      prev.map(prevItem =>
+        prevItem.product.id === cartItem.product.id && prevItem.quantity > 1
+          ? {
+              ...prevItem,
+              quantity: prevItem.quantity - 1,
+              total: prevItem.total - cartItem.product.price,
+            }
+          : prevItem,
       ),
     );
   }
 
   const changeQuantity = {
-    increaseQuantity: (id: number) => increaseQuantity(id),
+    increaseQuantity: (item: CartItem) => increaseQuantity(item),
+    decreaseQuantity: (item: CartItem) => decreaseQuantity(item),
   };
 
   if (!loadFonts) return <AppLoading />;

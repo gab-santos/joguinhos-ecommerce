@@ -19,7 +19,8 @@ export interface IAppContext {
   cartList: CartItem[];
   addToCart: (item: Product) => void;
   changeQuantity: {
-    increaseQuantity: (id: number) => void;
+    increaseQuantity: (cartItem: CartItem) => void;
+    decreaseQuantity: (cartItem: CartItem) => void;
   };
 }
 

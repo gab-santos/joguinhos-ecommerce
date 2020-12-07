@@ -25,7 +25,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { changeQuantity } = useContext(AppContext);
 
   function handleIncreaseItem() {
-    changeQuantity.increaseQuantity(item.product.id);
+    changeQuantity.increaseQuantity(item);
+  }
+  function handleDecreaseItem() {
+    changeQuantity.decreaseQuantity(item);
   }
 
   return (
@@ -41,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
       <Footer>
         <ChangeQuatity>
-          <Button.container onPress={() => {}}>
+          <Button.container onPress={handleDecreaseItem}>
             <Button.icon name="minus" />
           </Button.container>
 
