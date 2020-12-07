@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Karla_400Regular } from '@expo-google-fonts/karla';
 import { Montserrat_400Regular, useFonts } from '@expo-google-fonts/montserrat';
@@ -13,13 +13,17 @@ const App: React.FC = () => {
     Karla_400Regular,
     Montserrat_400Regular,
   });
-  const [productList] = useState<Product[]>(data);
+  const [productList, setProductList] = useState<Product[]>(data);
   const [cartList, setListCart] = useState<CartItem[]>([]);
   const [total, setTotal] = useState({
     subtotal: 0,
     freight: 0,
     total: 0,
   });
+
+  useEffect(() => {
+    filterProductList('score');
+  }, []);
 
   function increaseTotalPrices(item: Product) {
     setTotal(prev => {
@@ -122,6 +126,20 @@ const App: React.FC = () => {
     });
   }
 
+  function filterProductList(filter: string) {
+    interface IParams {
+      [key: string]: any;
+    }
+
+    setProductList(prev =>
+      prev.sort((a: IParams, b: IParams) => {
+        if (a[filter] < b[filter]) return -1;
+        if (a[filter] > b[filter]) return 1;
+        return 0;
+      }),
+    );
+  }
+
   if (!loadFonts) return <AppLoading />;
 
   return (
@@ -132,6 +150,7 @@ const App: React.FC = () => {
         totalPrices: total,
         addToCart,
         removeFromCart,
+        filterProductList,
         changeQuantity,
         changeTotalPrices,
       }}

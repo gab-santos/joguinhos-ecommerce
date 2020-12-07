@@ -22,9 +22,9 @@ export interface IAppContext {
     subtotal: number;
     total: number;
   };
-
   addToCart: (item: Product) => void;
   removeFromCart: (item: CartItem) => void;
+  filterProductList: (filter: string) => void;
   changeQuantity: {
     increaseQuantity: (cartItem: CartItem) => void;
     decreaseQuantity: (cartItem: CartItem) => void;
