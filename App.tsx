@@ -107,6 +107,19 @@ const App: React.FC = () => {
     setListCart(prev =>
       prev.filter(prevItem => prevItem.product.id !== cartItem.product.id),
     );
+
+    setTotal(prev => {
+      const calcFreight = prev.freight - cartItem.quantity * 10;
+      const calcSubTotal =
+        prev.subtotal - cartItem.product.price * cartItem.quantity;
+      const calcTotal = calcFreight + calcSubTotal;
+
+      return {
+        subtotal: calcSubTotal,
+        freight: calcFreight,
+        total: calcTotal,
+      };
+    });
   }
 
   if (!loadFonts) return <AppLoading />;
